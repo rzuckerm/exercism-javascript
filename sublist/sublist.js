@@ -9,12 +9,9 @@ export class List {
    * @returns {boolean}
    */
   compare(other) {
-    let compare = (lhs, rhs) => lhs.length == rhs.length && lhs.every((v, n) => v === rhs[n]);
-    if (compare(this.list, other.list)) { return 'EQUAL'; }
-
-    let [a, b, r] = (this.list.length < other.list.length) ? [this.list, other.list, 'SUB'] : [other.list, this.list, 'SUPER'];
-    if (b.slice(a.length - 1).some((_, k) => compare(a, b.slice(k, k + a.length)))) { return `${r}LIST`; }
-
-    return 'UNEQUAL';
+    let equals = (a, b) => a.length == b.length && a.every((v, n) => v === b[n]);
+    let includes = (a, b) => a.length < b.length && b.slice(a.length - 1).some((_, k) => equals(a, b.slice(k, k + a.length)));
+    return ['UNEQUAL', 'SUBLIST', 'SUPERLIST', 'EQUAL'][
+      3 * equals(this.list, other.list) + includes(this.list, other.list) + 2 * includes(other.list, this.list)];
   }
 }
