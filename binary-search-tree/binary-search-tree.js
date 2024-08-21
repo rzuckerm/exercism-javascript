@@ -16,8 +16,8 @@ export class BinarySearchTree {
    * @param {function}
    */
   each(fn) {
-    this.left && this.left.each(fn);
+    this.left?.each(fn);
     fn(this.data);
-    this.right && this.right.each(fn);
+    this.right?.each(fn);
   }
 }
