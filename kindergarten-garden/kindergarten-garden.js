@@ -7,7 +7,7 @@ export class Garden {
    * @param {string[]} students 
    */
   constructor(diagram, students = PUPILS) {
-    this.diagram = diagram.split('\n').map((row) => row.split('')).map((row) => row.map((p) => PLANTS[p]));
+    this.diagram = diagram.split('\n').map((row) => row.split('').map((p) => PLANTS[p]));
     this.students = [...students].sort();
   }
 
