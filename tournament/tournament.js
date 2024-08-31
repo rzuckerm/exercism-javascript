@@ -24,7 +24,7 @@ export const tournamentTally = (input) => {
  * @param {boll} l 
  */
 const update_tally = (tally, team, w, d, l) => {
-  let curr = tally[team] ?? {MP: 0, W: 0, D: 0, L: 0, P: 0}
+  let curr = tally[team] ?? {MP: 0, W: 0, D: 0, L: 0, P: 0};
   tally[team] = {MP: curr.MP + 1, W: curr.W + w, D: curr.D + d, L: curr.L + l, P: curr.P + 3 * w + d};
 }
 
