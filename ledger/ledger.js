@@ -37,7 +37,7 @@ export function formatEntries(currency, locale, entries) {
 
   return [fmt.header.map((h, n) => h.padEnd([10, 25, 13][n])), ...entries.map((entry) => [
     entry.date.toLocaleString(locale, { year: 'numeric', month: '2-digit', day: '2-digit' }),
-    (entry.description.length > 25) ? `${entry.description.substring(0, 22)}...` : entry.description.padEnd(25, ' '),
-    (entry.change / 100).toLocaleString(locale, changeFormat).replace(/([^)])$/, '$1 ').padStart(13, ' ')
+    (entry.description.length > 25) ? `${entry.description.substring(0, 22)}...` : entry.description.padEnd(25),
+    (entry.change / 100).toLocaleString(locale, changeFormat).replace(/([^)])$/, '$1 ').padStart(13)
   ])].map((row) => row.join(' | ')).join('\n');
 }
