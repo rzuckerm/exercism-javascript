@@ -15,7 +15,7 @@ describe('ResistorColor', () => {
     });
   });
 
-  xtest('Colors', () => {
+  test('Colors', () => {
     expect(COLORS).toEqual([
       'black',
       'brown',
