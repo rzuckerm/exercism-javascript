@@ -9,4 +9,7 @@ const EARTH_YEAR = 31557600;
  * @param {number} seconds
  * @returns {number}
  */
-export const age = (planet, seconds) => +(seconds / (EARTH_YEAR * PLANET_YEARS[planet])).toFixed(2);
+export const age = (planet, seconds) => {
+  if (!PLANET_YEARS[planet]) { throw new Error("not a planet") }
+  return +(seconds / (EARTH_YEAR * PLANET_YEARS[planet])).toFixed(2);
+}
