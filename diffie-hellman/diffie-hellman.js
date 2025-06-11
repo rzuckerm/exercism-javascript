@@ -15,6 +15,10 @@ export class DiffieHellman {
     return (this.g ** privateKey) % this.p;
   }
 
+  static getPrivateKey(p) {
+    return Math.floor(Math.random() * (p - 2) + 2);
+  }
+
   getSecret(theirPublicKey, myPrivateKey) { return (theirPublicKey ** myPrivateKey) % this.p; }
 }
 
