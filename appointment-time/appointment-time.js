@@ -43,9 +43,16 @@ export const getAppointmentDetails = (timestamp) => {
  * @returns {Record<'year' | 'month' | 'date' | 'hour' | 'minute', number>} the appointment details
  */
 export const updateAppointment = (timestamp, options) => {
-  const appointment = getAppointmentDetails(timestamp);
-  Object.entries(options).forEach(([key, value]) => appointment[key] = value);
-  return appointment;
+  let date = new Date(timestamp);
+  if (options.year != null) { date.setFullYear(options.year) }
+  if (options.month != null) { date.setMonth(options.month) }
+  if (options.date != null) { date.setDate(options.date) }
+  if (options.hour != null) { date.setHours(options.hour) }
+  if (options.minute != null) { date.setMinutes(options.minute) }
+  return {
+    year: date.getFullYear(), month: date.getMonth(), date: date.getDate(),
+    hour: date.getHours(), minute: date.getMinutes()
+  };
 }
 
 /**
