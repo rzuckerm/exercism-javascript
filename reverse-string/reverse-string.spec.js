@@ -1,3 +1,4 @@
+import { describe, expect, test, xtest } from '@jest/globals';
 import { reverseString } from './reverse-string';
 
 describe('ReverseString', () => {
@@ -34,6 +35,24 @@ describe('ReverseString', () => {
   test('an even-sized word', () => {
     const expected = 'reward';
     const actual = reverseString('drawer');
+    expect(actual).toEqual(expected);
+  });
+
+  test('wide characters', () => {
+    const expected = '猫子';
+    const actual = reverseString('子猫');
+    expect(actual).toEqual(expected);
+  });
+
+  test('grapheme cluster with pre-combined form', () => {
+    const expected = 'dnatsnehctsrüW';
+    const actual = reverseString('Würstchenstand');
+    expect(actual).toEqual(expected);
+  });
+
+  test('grapheme clusters', () => {
+    const expected = 'มรกแรปโนยขีเผู้';
+    const actual = reverseString('ผู้เขียนโปรแกรม');
     expect(actual).toEqual(expected);
   });
 });
