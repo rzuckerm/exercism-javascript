@@ -1,3 +1,4 @@
+import { describe, expect, test, xtest } from '@jest/globals';
 import { HighScores } from './high-scores';
 
 describe('High Scores Test Suite', () => {
@@ -40,6 +41,34 @@ describe('High Scores Test Suite', () => {
     test('Personal top when there is only one', () => {
       const input = [40];
       expect(new HighScores(input).personalTopThree).toEqual([40]);
+    });
+
+    test('Latest score after personal top scores', () => {
+      const input = [70, 50, 20, 30];
+      const highScores = new HighScores(input);
+      highScores.personalTopThree;
+      expect(highScores.latest).toEqual(30);
+    });
+
+    test('Scores after personal top scores', () => {
+      const input = [30, 50, 20, 70];
+      const highScores = new HighScores(input);
+      highScores.personalTopThree;
+      expect(highScores.scores).toEqual(input);
+    });
+
+    test('Latest score after personal best', () => {
+      const input = [20, 70, 15, 25, 30];
+      const highScores = new HighScores(input);
+      highScores.personalBest;
+      expect(highScores.latest).toEqual(30);
+    });
+
+    test('Scores after personal best', () => {
+      const input = [20, 70, 15, 25, 30];
+      const highScores = new HighScores(input);
+      highScores.personalBest;
+      expect(highScores.scores).toEqual(input);
     });
   });
 });
