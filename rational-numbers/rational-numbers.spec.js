@@ -1,3 +1,4 @@
+import { describe, expect, test, xtest } from '@jest/globals';
 import { Rational } from './rational-numbers';
 
 describe('Addition', () => {
@@ -104,14 +105,29 @@ describe('Absolute value', () => {
     expect(new Rational(1, 2).abs()).toEqual(expected);
   });
 
+  test('Absolute value of a positive rational number with negative numerator and denominator', () => {
+    const expected = new Rational(1, 2);
+    expect(new Rational(-1, -2).abs()).toEqual(expected);
+  });
+
   test('Absolute value of a negative rational number', () => {
     const expected = new Rational(1, 2);
     expect(new Rational(-1, 2).abs()).toEqual(expected);
   });
 
+  test('Absolute value of a negative rational number with negative denominator', () => {
+    const expected = new Rational(1, 2);
+    expect(new Rational(1, -2).abs()).toEqual(expected);
+  });
+
   test('Absolute value of zero', () => {
     const expected = new Rational(0, 1);
     expect(new Rational(0, 1).abs()).toEqual(expected);
+  });
+
+  test('Absolute value of a rational number is reduced to lowest terms', () => {
+    const expected = new Rational(1, 2);
+    expect(new Rational(2, 4).abs()).toEqual(expected);
   });
 });
 
@@ -124,6 +140,21 @@ describe('Exponentiation of a rational number', () => {
   test('Raise a negative rational number to a positive integer power', () => {
     const expected = new Rational(-1, 8);
     expect(new Rational(-1, 2).exprational(3)).toEqual(expected);
+  });
+
+  test('Raise a positive rational number to a negative integer power', () => {
+    const expected = new Rational(25, 9);
+    expect(new Rational(3, 5).exprational(-2)).toEqual(expected);
+  });
+
+  test('Raise a negative rational number to an even negative integer power', () => {
+    const expected = new Rational(25, 9);
+    expect(new Rational(-3, 5).exprational(-2)).toEqual(expected);
+  });
+
+  test('Raise a negative rational number to an odd negative integer power', () => {
+    const expected = new Rational(-125, 27);
+    expect(new Rational(-3, 5).exprational(-3)).toEqual(expected);
   });
 
   test('Raise zero to an integer power', () => {
@@ -167,6 +198,11 @@ describe('Reduction to lowest terms', () => {
   test('Reduce a positive rational number to lowest terms', () => {
     const expected = new Rational(1, 2);
     expect(new Rational(2, 4).reduce()).toEqual(expected);
+  });
+
+  test('Reduce places the minus sign on the numerator', () => {
+    const expected = new Rational(-3, 4);
+    expect(new Rational(3, -4).reduce()).toEqual(expected);
   });
 
   test('Reduce a negative rational number to lowest terms', () => {

@@ -39,7 +39,7 @@ export class Rational {
    * @param {number} a
    * @returns {Rational} 
    */
-  exprational(a) { return new Rational(this.n ** a, this.d ** a); }
+  exprational(a) { return (a >= 0) ? new Rational(this.n ** a, this.d ** a) : new Rational(this.d ** (-a), this.n ** (-a)); }
 
   /**
    * @param {number} a
