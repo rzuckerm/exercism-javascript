@@ -38,7 +38,7 @@ export const isObject = (value) => value !== null && typeof value === "object";
  * @param {unknown} value
  * @returns {boolean} whether the input is a numeric string.
  */
-export const isNumericString = (value) => typeof value === "string" && /^\d+$/.test(value)
+export const isNumericString = (value) => typeof value === "string" && /^-?\d+$/.test(value)
 
 /**
  * Checks if an object is an instance of the `ElectronicDevice` class or one of its children.
@@ -54,14 +54,14 @@ export const isElectronic = (object) => object instanceof ElectronicDevice;
  * @param {unknown} value
  * @returns {boolean} whether the input is a non empty array.
  */
-export const isNonEmptyArray = (value) => value instanceof Array && value.length > 0
+export const isNonEmptyArray = (value) => Array.isArray(value) && value.length > 0
 /**
  * Checks if a value is an empty array.
  *
  * @param {unknown} value
  * @returns {boolean} whether the input is an empty array.
  */
-export const isEmptyArray = (value) => value instanceof Array && value.length === 0
+export const isEmptyArray = (value) => Array.isArray(value) && value.length === 0
 
 /**
  * Throws an error if an object is missing an "id" property or method.
