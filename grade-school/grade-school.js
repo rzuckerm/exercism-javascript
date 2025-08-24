@@ -4,15 +4,17 @@ export class GradeSchool {
   /**
    * @returns {object}
    */
-  roster = () => structuredClone(this.students);
+  roster = () => Object.keys(this.students).sort().flatMap((k) => this.students[k]);
 
   /**
    * @param {string} name 
    * @param {number} grade 
+   * @returns {boolean}
    */
   add(name, grade) {
-    this.students = Object.fromEntries(Object.entries(this.students).filter(([_, n]) => n != name));
+    if (Object.values(this.students).some((names) => names.includes(name))) { return false; }
     this.students[grade] = (this.students[grade] ?? []).concat(name).sort();
+    return true;
   }
 
   /**
