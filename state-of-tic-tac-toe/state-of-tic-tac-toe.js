@@ -6,8 +6,8 @@
 // - + - + -
 // 6 | 7 | 8
 //
-// The first value is the starting position, the second value is the increment
-const MOVES = [[0, 1], [3, 1], [6, 1], [0, 3], [1, 3], [2, 3], [0, 4], [2, 2]];
+// Each item is a list of positions that a piece must occupy to win
+const WINS = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 
 /**
  * @param {string[]} board
@@ -15,25 +15,13 @@ const MOVES = [[0, 1], [3, 1], [6, 1], [0, 3], [1, 3], [2, 3], [0, 4], [2, 2]];
  * @throws {Error}
  */
 export const gamestate = (board) => {
-  board = board.flatMap((row) => [...row]);
-  let [numX, numO] = [count(board, 'X'), count(board, 'O')];
-  let [winX, winO] = [win(board, 'X'), win(board, 'O')];
+  const boardStr = board.join('');
+  const [numX, numO] = ['X', 'O'].map((c) => boardStr.split(c).length - 1);
   if (numX > numO + 1) { throw new Error('Wrong turn order: X went twice'); }
   if (numO > numX) { throw new Error('Wrong turn order: O started'); }
-  if (winX && winO) { throw new Error('Impossible board: game should have ended after the game was won'); }
+
+  const [winX, winO] = ['X', 'O'].map((c) => WINS.some((w) => w.every((pos) => boardStr[pos] == c)));
+  const impossible = (winX && numX != numO + 1) || (winO && numX != numO);
+  if (impossible) { throw new Error('Impossible board: game should have ended after the game was won'); }
   return (winX || winO) ? 'win' : ((numX + numO) < 9 ? 'ongoing' : 'draw');
 };
-
-/**
- * @param {string[]} board
- * @param {string} piece
- * @returns {number}
- */
-const count = (board, piece) => board.filter((square) => square == piece).length;
-
-/**
- * @param {string[]} board
- * @param {string} piece
- * @returns {boolean}
- */
-const win = (board, piece) => MOVES.some(([start, inc]) => [0, 1, 2].every((k) => board[start + k * inc] == piece));
