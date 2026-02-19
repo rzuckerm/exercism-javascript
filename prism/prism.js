@@ -12,10 +12,8 @@ export const findSequence = (start, prisms) => {
     for (const prism of prisms) {
       const [dx, dy] = [prism.x - current.x, prism.y - current.y];
       let dist = Math.sqrt(dx * dx + dy * dy);
-      let dot = dx * unitX + dy * unitY;
-      if (dist > 0.0 && dist < minDist && dot >= dist * (1 - TOL) && dot <= dist * (1 + TOL)) {
-        [selectedPrism, minDist] = [prism, dist];
-      }
+      let dot = (dist > 0) ? (dx * unitX + dy * unitY) / dist : 1;
+      if (dist > 0.0 && dist < minDist && Math.abs(dot - 1) <= TOL) { [selectedPrism, minDist] = [prism, dist]; }
     }
 
     if (!selectedPrism) { break; }
