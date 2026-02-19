@@ -5,10 +5,10 @@ const TOL = 1e-6;
 export const findSequence = (start, prisms) => {
   let current = {...start, id: null};
   let ids = [];
-  do {
+  while (true) {
     const [unitX, unitY] = [Math.cos(current.angle * DEG_TO_RAD), Math.sin(current.angle * DEG_TO_RAD)];
-    var selectedPrism = null;
-    var minDist = Infinity;
+    let selectedPrism = null;
+    let minDist = Infinity;
     for (const prism of prisms) {
       const [dx, dy] = [prism.x - current.x, prism.y - current.y];
       let dist = Math.sqrt(dx * dx + dy * dy);
@@ -18,11 +18,10 @@ export const findSequence = (start, prisms) => {
       }
     }
 
-    if (selectedPrism) {
-      ids.push(selectedPrism.id);
-      current = {...selectedPrism, angle: (current.angle + selectedPrism.angle) % 360};
-    }
-  } while (selectedPrism);
+    if (!selectedPrism) { break; }
+    ids.push(selectedPrism.id);
+    current = {...selectedPrism, angle: (current.angle + selectedPrism.angle) % 360};
+  }
 
   return ids;
 };
