@@ -1,2 +1,5 @@
 # Ignore build and editor files
 .vscode/
+
+# Ignore pnpm generated files
+pnpm-workspace.yaml
